@@ -2,10 +2,10 @@
 
 This document must be updated daily every time you finish a work session.
 
-## Amy Smith  (CHANGE THIS!!!!! Also change the file name!)
+## Hyunseo "Eileen Lee"
 
-### 2024-01-02 - Brief description
-Expanded description including how much time was spent on task.
+### 2026-01-06 - Brief description
+Pushed the Proposal Doc into the repo, further allocated tasks following the timeline
 
-### 2024-01-03 - Brief description
-Expanded description including how much time was spent on task.
+### 2024-01-07 - TBA
+TBA...
