@@ -85,4 +85,8 @@ Shared:
 
 # Intended pacing:
 
-A timeline with expected completion dates of parts of the project. (CHANGE THIS!!!!!)
+08 Jan 2026: server running ; clients able to connect
+
+10 Jan 2026: interface ; creating public / private events
+
+12 Jan 2026: MVP
