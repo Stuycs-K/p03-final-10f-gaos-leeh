@@ -10,7 +10,7 @@ When coordinating an event or a schedule with multiple people (especially with d
 
 # Intended usage:
 
-Features We're Aiming by MVP Deadline (12 Jan 2026)
+## Features We're Aiming by MVP Deadline (12 Jan 2026)
 
 - Supports dates in 2026
 - Interface switching between monthly views (e.g. to move between times, the calender will by default switch from Jan → Feb)
@@ -20,62 +20,62 @@ Features We're Aiming by MVP Deadline (12 Jan 2026)
 - Switch between public and private: invitation to certain clients allowed
 - Events have location, description, guest slots for allocation
 
-Extra Features
+### Extra Features
 - Time zones in GMT
 - Weekly/daily views
 - Group making features (three layers of event visibility: only to me, only to group, and to everyone)
 - Select/deselect group events from display
 - Separate chatroom(s) to better accomodate event discussions and plannings
 
-Interface description
+## Interface description
 
-Main Calendar View:
+### Main Calendar View:
 - Monthly grid display showing all days of 2026
 - Navigation controls to switch between months (January → February → December)
 - Color-coded event blocks distinguishing between: private events (visible only to the user), public events (visible to all users), invited events (shared with specific users)
 
-Event Creation Interface:
+### Event Creation Interface:
 - Modal dialog or side panel activated by clicking on a date/time slot
 - Form fields including: event title and description, date selector with all-day toggle, time block selector (start/end times) for non-all-day events, location, privacy setting dropdown, guest allocation slots
 
-Event Management:
+### Event Management:
 - Click on existing events to view details
 - Edit/delete options for owned events
 - Accept/decline invitations for invited events
 - Toggle between viewing public events only or all accessible events
 
-Navigation:
+### Navigation:
 - Month selector dropdown or arrow navigation
 - "Today" button to return to current date
 - Filter controls for event visibility preferences
 
 # Technical Details:
 
-Linked lists:
+## Linked lists:
 - event storage, guest lists, user directory, and sorted event lists
-Dynamic memory allocation
+## Dynamic memory allocation
 - event nodes, user nodes, and string data like titles, descriptions, locations.
 - navigation throughout linked lists, for updates and deletions on events
 - variable string allocation in case of edits
 
-Structs:
+## Structs:
 - event structs: title, date, time, location, privacy, guest list pointer
 - user structs: containing user information like ID, name, pointer to next user
 - date/time structs: calendar dates and time blocks
 
-File I/O:
+## File I/O:
 - fopen, fread, fwrite, fclose: Save calendar data to files and load on startup
 - text file parsing for events
 
-Sandra's Responsibilities:
+# Sandra's Responsibilities:
 - Frontend user interface development and integration using html/css/javascript
 
-Eileen Responsibilities:
+# Eileen Responsibilities:
 - event functions: createevent, deleteevent, updateevent, findevent
 - master calender linked list
 - privacy and permission checking logic
 
-Shared:
+# Shared:
 - design and implement event and user structs
 - create master calendar linked list (date → events structure)
 - linked list operations
