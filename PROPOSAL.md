@@ -86,6 +86,7 @@ When coordinating an event or a schedule with multiple people (especially with d
 # Intended pacing:
 
 08 Jan 2026: server running ; clients able to connect
+implement select to handle concurrent registration of events from multiple users
 
 10 Jan 2026: interface ; creating public / private events
 
