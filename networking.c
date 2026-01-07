@@ -1,9 +1,12 @@
 #include "networking.h"
 
-/*Create and bind a socket.
-* Place the socket in a listening state.
-* returns the socket descriptor
-*/
+void err(int i, char *message) {
+    if (i < 0) {
+        printf("Error: %s - %s\n", message, strerror(errno));
+        exit(1);
+    }
+}
+
 int server_setup() {
   //setup structs for getaddrinfo
   struct addrinfo* hints = (struct addrinfo*) malloc(sizeof(struct addrinfo));
