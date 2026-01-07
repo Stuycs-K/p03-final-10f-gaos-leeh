@@ -4,8 +4,8 @@ calendar_setup: compile
 open_calendar: compile
 	@./calendar_client
 compile: calendar_server.o server_behavior.o calendar_client.o client_behavior.o networking.o
-	@gcc -o calendar_server calendar_server.o server_behavior.o
-	@gcc -o calendar_client calendar_client.o client_behavior.o
+	@gcc -o calendar_server calendar_server.o server_behavior.o networking.o
+	@gcc -o calendar_client calendar_client.o client_behavior.o networking.o
 server_behavior.o: server_behavior.c networking.h
 	@gcc -Wall server_behavior.c
 client_behavior.o: client_behavior.c networking.h
