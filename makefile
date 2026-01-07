@@ -3,16 +3,18 @@ calendar_setup: compile
 	@./calendar_server
 open_calendar: compile
 	@./calendar_client
-compile: calendar_server.o server_behavior.o calendar_client.o client_behavior.o
+compile: calendar_server.o server_behavior.o calendar_client.o client_behavior.o networking.o
 	@gcc -o calendar_server calendar_server.o server_behavior.o
 	@gcc -o calendar_client calendar_client.o client_behavior.o
-server_behavior.o: server_behavior.c
+server_behavior.o: server_behavior.c networking.h
 	@gcc -c server_behavior.c
-client_behavior.o: client_behavior.c
+client_behavior.o: client_behavior.c networking.h
 	@gcc -c client_behavior.c
 calendar_server.o: calendar_client.c server_behavior.h
 	@gcc -c calendar_server.o
 calendar_client.o: calendar_client.c client_behavior.h
 	@gcc -c calendar_client.c
+networking.o: networking.c
+	@gcc -c networking.c
 clean:
 	rm -f *.o
