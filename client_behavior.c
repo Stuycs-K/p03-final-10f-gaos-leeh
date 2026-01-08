@@ -12,7 +12,7 @@ int rN() {
 }
 
 void display_calendar(int month) {
-  char** months = {"JANUARY", "FEBRUARY", "MARCH", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+  char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
   printf("%s\n", months[month - 1]);
 }
 struct EventNode* create_event(int owner_id, char* name, char* description, int permissions, int* times) {
