@@ -11,9 +11,16 @@ int rN() {
   return result;
 }
 
+void print_frame(int width, int height, int start_day) { // figure out resizing terminal
+  int cell_width = width / 7;
+  int cell_height = height / 4;
+}
+
 void display_calendar(int month) {
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
   printf("%s\n", months[month - 1]);
+
+
 }
 struct EventNode* create_event(int owner_id, char* name, char* description, int permissions, int* times) {
   struct EventNode* event = (struct EventNode*) malloc(sizeof(struct EventNode));
