@@ -11,3 +11,4 @@ On server_behavior.c, added handle logic (not fully implemented), singhandler, f
 
 ### 2024-01-07 - TBA
 Fixed some linking issues in the makefile (as of 8:48am)
+tried to fix networking socket issues in networking.c and some data type in server behavior.c, but failed (11pm - this morning)
