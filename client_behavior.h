@@ -20,6 +20,6 @@ struct EventNode {
 };
 
 void display_calendar(int month);
-struct EventNode* create_event(char* name, char* description, int permissions, int* times);
+struct EventNode* create_event(int owner_id, char* name, char* description, int permissions, int* times);
 
 #endif
