@@ -10,6 +10,8 @@
 #include <sys/wait.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <sys/shm.h>
+#include <sys/ipc.h>
 
 
 #ifndef NETWORKING_H
@@ -17,6 +19,7 @@
 #define PORT "19230"
 #define BUFFER_SIZE 1024
 #define BACKLOG 10
+#define MAX_CLIENTS 10
 
 void err(int i, char*message);
 int server_setup();
