@@ -48,7 +48,7 @@ int server_tcp_handshake(int listen_socket){
 
     //accept() the client connection
     struct sockaddr* client_id = (struct sockaddr*) malloc(sizeof(struct sockaddr));
-    int addrlen = sizeof(client_id);
+    unsigned int addrlen = sizeof(client_id);
 
     client_socket = accept(listen_socket, (struct sockaddr *)&client_id, &addrlen); err(client_socket, "");
     printf("server connected\n");
