@@ -17,7 +17,7 @@ void print_frame(int width, int height, int start_day) { // figure out resizing 
 }
 
 void display_calendar(int month) {
-  char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+  char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
   printf("%s\n", months[month - 1]);
 
 
