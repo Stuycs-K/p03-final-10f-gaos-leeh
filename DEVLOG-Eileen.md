@@ -9,6 +9,9 @@ Pushed the Proposal Doc into the repo, further allocated tasks following the tim
 On server_behavior.c, added handle logic (not fully implemented), singhandler, fixed some dependency/h fils issues across files (as of 6:30 am)
 
 
-### 2024-01-07 - TBA
+### 2026-01-07 - TBA
 Fixed some linking issues in the makefile (as of 8:48am)
-tried to fix networking socket issues in networking.c and some data type in server behavior.c, but failed (11pm - this morning)
+tried to fix networking socket issues in networking.c and some data type in server behavior.c, but failed (worked from: 11pm - this morning)
+
+### 2026-01-08 - Server Connection
+Got the calendar server and calendar client to connect, using select. (as of 1 am)
