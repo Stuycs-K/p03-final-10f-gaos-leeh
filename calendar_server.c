@@ -99,7 +99,7 @@ int main() {
                     client_sockets[i] = -1;
                     client_ids[i] = -1;
                 } else {
-                    // process_command(buffer, client_sockets[i], client_ids[i], shared_calendar);
+                    process_command(buffer, client_sockets[i], client_ids[i], shared_calendar);
                 }
             }
         }
