@@ -17,24 +17,26 @@ int main(int argc, char** argv) {
   while (1) {
         printf("\nenter command: ");
         fflush(stdout);
-        
+
         memset(buffer, 0, BUFFER_SIZE);
         if (fgets(buffer, BUFFER_SIZE, stdin) == NULL) {
             break;
         }
-        
+
         write(server_socket, buffer, strlen(buffer));
-        
+
         memset(buffer, 0, BUFFER_SIZE);
         int bytes_read = read(server_socket, buffer, BUFFER_SIZE - 1);
         if (bytes_read <= 0) {
             printf("Server disconnected\n");
             break;
         }
-        
+
         printf("%s", buffer);
+
+        display_calendar(1);
     }
-    
+
     close(server_socket);
     return 0;
 }
