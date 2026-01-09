@@ -19,8 +19,8 @@ struct EventNode* create_event(int owner_id, char* name, char* description, int 
   struct EventNode* event = (struct EventNode*) malloc(sizeof(struct EventNode));
   event->event_id = rN();
 
-  strcopy(event->name, name);
-  strcopy(event->description, description);
+  strcpy(event->name, name);
+  strcpy(event->description, description);
 
   event->owner_id = owner_id;
   event->permissions = permissions;
