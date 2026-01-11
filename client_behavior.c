@@ -16,31 +16,28 @@ void print_frame(int width, int height, int start_day) { // figure out resizing 
   int cell_width = width / 7;
   int cell_height = height / 4;
 
-  for (int i = 1; i < height; i++) {
-    go(i, 1); printf("|");  // leftmost wall
-    go(i, width); printf("|", i, width - 1); // rightmost wall
+  for (int row = 0; row <= height; row++) {
+    for (int col = 0; col <= width; col++) {
+        if (col % cell_width == 0 && (row - 1) % cell_height == 0) {
+            printf("+");
+        } else if (col % cell_width == 0) {
+            printf("|");
+        } else if (row % cell_height == 0) {
+            printf("-");
+        } else {
+            printf(" ");
+        }
+    }
   }
-
-  go(1, 1); printf("+");
-  for (int i = 1; i < width - 1; i++) {
-    printf("-");
-  } 
-  printf("+"); 
-  
-  go(height - 1, 1); printf("+");
-  for (int i = 1; i < width - 1; i++) {
-    printf("-");
-  }
-  printf("+");
 }
 
 void display_calendar(int month) {
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
 
   clear();
-  printf("%s\n", months[month - 1]);
+  go(0,0); // printf("%s", months[month - 1]);
 
-  print_frame(80, 24, 0);
+  print_frame(84, 24, 0);
 }
 struct EventNode* create_event(int owner_id, char* name, char* description, int permissions, int* times) {
   struct EventNode* event = (struct EventNode*) malloc(sizeof(struct EventNode));

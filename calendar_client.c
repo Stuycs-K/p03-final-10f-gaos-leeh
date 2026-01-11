@@ -1,5 +1,6 @@
 #include "client_behavior.h"
 #include "networking.h"
+#include "text.h"
 
 int main(int argc, char** argv) {
   char* ip = "127.0.0.1";
@@ -15,7 +16,9 @@ int main(int argc, char** argv) {
   printf("%s", buffer);
 
   while (1) {
-        printf("\nenter command: ");
+        display_calendar(1);
+        go(25,0);
+        printf("enter command: ");
         fflush(stdout);
 
         memset(buffer, 0, BUFFER_SIZE);
@@ -33,8 +36,6 @@ int main(int argc, char** argv) {
         }
 
         printf("%s", buffer);
-
-        display_calendar(1);
     }
 
     close(server_socket);
