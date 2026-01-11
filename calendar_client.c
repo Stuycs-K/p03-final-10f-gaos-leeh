@@ -17,8 +17,7 @@ int main(int argc, char** argv) {
 
   while (1) {
         display_calendar(1);
-        go(25,0);
-        printf("enter command: ");
+        print_prompt();
         fflush(stdout);
 
         memset(buffer, 0, BUFFER_SIZE);
