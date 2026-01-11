@@ -15,3 +15,6 @@ tried to fix networking socket issues in networking.c and some data type in serv
 
 ### 2026-01-08 - Server Connection
 Got the calendar server and calendar client to connect, using select. (as of 1 am)
+
+### 2026-01-09 - Handling inputs, formatting in terminal settings
+got the process_command and handle_create_event functions working (as of the end of class on Jan 9)
