@@ -12,20 +12,21 @@ int rN() {
   return result;
 }
 
-void print_frame(int width, int height, int start_day) { // figure out resizing terminal
-  int cell_width = width / 7;
-  int cell_height = height / 4;
+void print_frame(int start_row, int start_col) { // figure out resizing terminal
+  go(start_row, start_col);
 
-  for (int row = 0; row <= height; row++) {
-    for (int col = 0; col <= width; col++) {
-        if (col % cell_width == 0 && (row - 1) % cell_height == 0) {
+  int cell_width = 24;
+  int cell_height = 10;
+
+  for (int row = 1; row <= cell_height * 4 + 1; row++) {
+    for (int col = 1; col <= cell_width * 7 + 1; col++) {
+        go(start_row + row - 1, start_col + col - 1);
+        if ((col - 1) % cell_width == 0 && (row - 1) % cell_height == 0) {
             printf("+");
-        } else if (col % cell_width == 0) {
+        } else if ((col - 1) % cell_width == 0) {
             printf("|");
-        } else if (row % cell_height == 0) {
+        } else if ((row - 1) % cell_height == 0) {
             printf("-");
-        } else {
-            printf(" ");
         }
     }
   }
@@ -33,11 +34,18 @@ void print_frame(int width, int height, int start_day) { // figure out resizing 
 
 void display_calendar(int month) {
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+  char* week_header = "         Sunday        ";
 
   clear();
-  go(0,0); // printf("%s", months[month - 1]);
+  go(1, 1); printf("%s", months[month - 1]);
+  go(2, 1); printf("%s", week_header);
 
-  print_frame(84, 24, 0);
+  print_frame(3, 1);
+}
+
+void print_prompt() {
+  go(44, 0); printf("insert valid commands here");
+  go(43, 0); printf("enter command: ");
 }
 struct EventNode* create_event(int owner_id, char* name, char* description, int permissions, int* times) {
   struct EventNode* event = (struct EventNode*) malloc(sizeof(struct EventNode));
