@@ -1,8 +1,6 @@
 #ifndef CLIENT_BEHAVIOR_H
 #define CLIENT_BEHAVIOR_H
 
-#include <ncurses.h>
-
 struct DateNode {
     int month, day, year;
     struct EventNode *events;

@@ -1,5 +1,6 @@
 #include "networking.h"
 #include "client_behavior.h"
+#include "text.h"
 
 int rN() {
   int fd = open("/dev/random", O_RDONLY, 0); if (fd < 0) {printf("%s\n", strerror(errno)); exit(errno);}
@@ -11,38 +12,32 @@ int rN() {
   return result;
 }
 
-char* repeat(char* s, int length, int reps) {
-  char*  result = (char *) malloc(sizeof(char) length * reps + 1);
-  char* temp = result;
-
-  for (int i = 0; i < length * reps + 1; i++) {
-    strcpy(temp, s);
-    temp += length;
-  }
-
-  *temp = 0;
-  return result;
-}
-
 void print_frame(int width, int height, int start_day) { // figure out resizing terminal
   int cell_width = width / 7;
   int cell_height = height / 4;
 
   for (int i = 1; i < height; i++) {
-    printf("\u001b[%d;%df", i, 0);  // leftmost wall
-    printf("\u001b[%d;%df|", i, width - 1); // rightmost wall
+    go(i, 1); printf("|");  // leftmost wall
+    go(i, width); printf("|", i, width - 1); // rightmost wall
   }
 
-  char* bar = repeat("-", 1, width - 2);
-
-  printf("\u001b[%d;%df+%s+", 1, 0, bar);
-  printf("\u001b[%d;%df+%s+", height - 1, 0, bar);
-
-  free(bar);
+  go(1, 1); printf("+");
+  for (int i = 1; i < width - 1; i++) {
+    printf("-");
+  } 
+  printf("+"); 
+  
+  go(height - 1, 1); printf("+");
+  for (int i = 1; i < width - 1; i++) {
+    printf("-");
+  }
+  printf("+");
 }
 
 void display_calendar(int month) {
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+
+  clear();
   printf("%s\n", months[month - 1]);
 
   print_frame(80, 24, 0);
