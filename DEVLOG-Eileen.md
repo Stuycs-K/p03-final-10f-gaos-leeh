@@ -18,3 +18,6 @@ Got the calendar server and calendar client to connect, using select. (as of 1 a
 
 ### 2026-01-09 - Handling inputs, formatting in terminal settings
 got the process_command and handle_create_event functions working (as of the end of class on Jan 9)
+
+### 2026-01-11 - Ncurses basic setup/color
+Ncurses trial on calender_ui.c
