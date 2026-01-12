@@ -21,7 +21,8 @@ int main(int argc, char** argv) {
   printf("%s", buffer);
 
   while (1) {
-        struct tm* now = get_now();
+        time_t raw_now = time(NULL);
+        struct tm* now = localtime(&raw_now);
 
         display_calendar(now->tm_mon);
         print_prompt();
