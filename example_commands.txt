@@ -1,0 +1,3 @@
+CREATE Meeting|Discuss project|0|1|1|15|2026
+VIEW 1|15|2026
+DELETE 1
