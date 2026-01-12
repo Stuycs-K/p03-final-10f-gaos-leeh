@@ -19,4 +19,4 @@ networking.o: networking.c
 text.o: text.c
 	@gcc -c -Wall text.c
 clean:
-	rm -f *.o calendar_server calendar_client
+	rm -f *.o calendar_server calendar_client calendar_data.txt
