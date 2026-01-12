@@ -5,7 +5,7 @@
 #define terminal_width 169
 #define terminal_height 45
 #define cell_width 24
-#define cell_height 10
+#define cell_height 8
 
 int rN() {
   int fd = open("/dev/random", O_RDONLY, 0); if (fd < 0) {printf("%s\n", strerror(errno)); exit(errno);}
@@ -17,15 +17,10 @@ int rN() {
   return result;
 }
 
-struct tm* get_now() {
-    time_t now; time(&now);
-    return localtime(&now);
-}
-
 void print_frame(int start_row, int start_col) { // figure out resizing terminal
   go(start_row, start_col);
 
-  for (int row = 1; row <= cell_height * 4 + 1; row++) {
+  for (int row = 1; row <= cell_height * 5 + 1; row++) {
     for (int col = 1; col <= cell_width * 7 + 1; col++) {
         go(start_row + row - 1, start_col + col - 1);
         if ((col - 1) % cell_width == 0 && (row - 1) % cell_height == 0) {
@@ -60,9 +55,33 @@ void display_calendar(struct tm* time) {
       total_days = 29; // leap year
     } else {
       total_days = 28;
-  } else if (
+    }
+  } else if (time->tm_mon < 8) { // before august
+    if (time->tm_mon % 2) { // even months: apr, jun
+      total_days = 30;
+    } else { // odd months: jan, mar, may, jul
+      total_days = 31;
+    }
+  } else {
+    if (time->tm_mon % 2) { // even months: oct, dec
+      total_days = 31;
+    } else { // odd months: sep, nov
+      total_days = 30;
+    }
+  }
   go(4, start_weekday * cell_width + 3);
 
+  int curr_row = 4;
+  int cell_margin = 3;
+  for(int i = 0; i < total_days; i++) {
+    go(curr_row, start_weekday * cell_width + cell_margin); printf("%d", i + 1);
+    start_weekday++;
+
+    if (start_weekday == 7) {
+      curr_row += cell_height;
+      start_weekday %= 7;
+    }
+  }
 }
 
 void print_prompt() {

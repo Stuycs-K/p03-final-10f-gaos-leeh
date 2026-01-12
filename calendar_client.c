@@ -3,9 +3,9 @@
 #include "text.h"
 
 #define terminal_width 169
-#define terminal_height 45
+#define terminal_height 37
 #define cell_width 24
-#define cell_height 10
+#define cell_height 8
 
 int main(int argc, char** argv) {
   char* ip = "127.0.0.1";
