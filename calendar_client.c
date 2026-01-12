@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
         time_t raw_now = time(NULL);
         struct tm* now = localtime(&raw_now);
 
-        display_calendar(now->tm_mon);
+        display_calendar(now);
         print_prompt();
         fflush(stdout);
 

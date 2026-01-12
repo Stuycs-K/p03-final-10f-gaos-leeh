@@ -39,13 +39,18 @@ void print_frame(int start_row, int start_col) { // figure out resizing terminal
   }
 }
 
-void display_calendar(int month) {
+void display_calendar(struct tm* time) {
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
   char* week_header = "         Sunday                  Monday                 Tuesday                 Wednesday               Thursday                 Friday                  Saturday      ";
 
   clear();
-  go(1, 1); printf("%s", months[month]);
+  go(1, 1); printf("%s", months[now->tm_mon]);
   go(2, 1); printf("%s", week_header);
+
+  int day = time->tm_mday;
+  int weekday = time->wday;
+
+  int shift = day % 7; // days since the weekday of the start of the month
 
   print_frame(3, 1);
 }
