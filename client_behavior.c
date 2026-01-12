@@ -54,14 +54,14 @@ void display_calendar(struct tm* time) {
 
   print_frame(3, 1);
 
-  int total_days;
-  if (time->tm_mon == 1) {
-    if ((1900 + time->tm_year) % 400 != 0 && (1900 + time->tm_year) % 4 == 0) {
-      total_days = 29; // leap year
-    } else {
-      total_days = 28;
-  } else if (
-  go(4, start_weekday * cell_width + 3);
+//  int total_days;
+//  if (time->tm_mon == 1) {
+//    if ((1900 + time->tm_year) % 400 != 0 && (1900 + time->tm_year) % 4 == 0) {
+//      total_days = 29; // leap year
+//    } else {
+//      total_days = 28;
+//  } else if (
+//   go(4, start_weekday * cell_width + 3);
 
 }
 
