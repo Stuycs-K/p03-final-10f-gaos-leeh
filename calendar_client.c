@@ -2,6 +2,11 @@
 #include "networking.h"
 #include "text.h"
 
+#define terminal_width 169
+#define terminal_height 45
+#define cell_width 24
+#define cell_height 10
+
 int main(int argc, char** argv) {
   char* ip = "127.0.0.1";
 
@@ -16,7 +21,9 @@ int main(int argc, char** argv) {
   printf("%s", buffer);
 
   while (1) {
-        display_calendar(1);
+        struct tm* now = get_now();
+
+        display_calendar(now->tm_mon);
         print_prompt();
         fflush(stdout);
 

@@ -2,6 +2,11 @@
 #include "client_behavior.h"
 #include "text.h"
 
+#define terminal_width 169
+#define terminal_height 45
+#define cell_width 24
+#define cell_height 10
+
 int rN() {
   int fd = open("/dev/random", O_RDONLY, 0); if (fd < 0) {printf("%s\n", strerror(errno)); exit(errno);}
   int n1,n2;
@@ -12,11 +17,13 @@ int rN() {
   return result;
 }
 
+struct tm* get_now() {
+    time_t now; time(&now);
+    return localtime(&now);
+}
+
 void print_frame(int start_row, int start_col) { // figure out resizing terminal
   go(start_row, start_col);
-
-  int cell_width = 24;
-  int cell_height = 10;
 
   for (int row = 1; row <= cell_height * 4 + 1; row++) {
     for (int col = 1; col <= cell_width * 7 + 1; col++) {
@@ -44,8 +51,8 @@ void display_calendar(int month) {
 }
 
 void print_prompt() {
-  go(45, 0); printf("insert valid commands here");
-  go(44, 0); printf("enter command: ");
+  go(terminal_height, 0); printf("insert valid commands here");
+  go(terminal_height - 1, 0); printf("enter command: ");
 }
 
 struct EventNode* create_event(int owner_id, char* name, char* description, int permissions, int* times) {
