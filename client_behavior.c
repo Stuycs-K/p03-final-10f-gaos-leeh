@@ -34,7 +34,7 @@ void print_frame(int start_row, int start_col) { // figure out resizing terminal
 
 void display_calendar(int month) {
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
-  char* week_header = "         Sunday        ";
+  char* week_header = "         Sunday                 Monday               Tuesday               Wednesday             Thursday               Friday                Saturday      ";
 
   clear();
   go(1, 1); printf("%s", months[month - 1]);
