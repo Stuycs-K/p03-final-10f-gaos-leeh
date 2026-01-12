@@ -1,6 +1,8 @@
 #ifndef CLIENT_BEHAVIOR_H
 #define CLIENT_BEHAVIOR_H
 
+#include <time.h>
+
 struct DateNode {
     int month, day, year;
     struct EventNode *events;
@@ -20,6 +22,8 @@ struct EventNode {
 };
 
 void display_calendar(int month);
+void print_prompt();
+struct tm* get_now();
 struct EventNode* create_event(int owner_id, char* name, char* description, int permissions, int* times);
 
 #endif
