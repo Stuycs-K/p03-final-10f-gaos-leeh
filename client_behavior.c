@@ -44,15 +44,25 @@ void display_calendar(struct tm* time) {
   char* week_header = "         Sunday                  Monday                 Tuesday                 Wednesday               Thursday                 Friday                  Saturday      ";
 
   clear();
-  go(1, 1); printf("%s", months[now->tm_mon]);
+  go(1, 1); printf("%s", months[time->tm_mon]);
   go(2, 1); printf("%s", week_header);
 
-  int day = time->tm_mday;
-  int weekday = time->wday;
+  int today = time->tm_mday;
 
-  int shift = day % 7; // days since the weekday of the start of the month
+  int start_weekday = time->tm_wday - (today - 1) % 7;
+  if (start_weekday < 0) start_weekday += 7;
 
   print_frame(3, 1);
+
+  int total_days;
+  if (time->tm_mon == 1) {
+    if ((1900 + time->tm_year) % 400 != 0 && (1900 + time->tm_year) % 4 == 0) {
+      total_days = 29; // leap year
+    } else {
+      total_days = 28;
+  } else if (
+  go(4, start_weekday * cell_width + 3);
+
 }
 
 void print_prompt() {
