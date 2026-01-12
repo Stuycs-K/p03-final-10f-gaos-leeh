@@ -49,10 +49,19 @@ void display_calendar(struct tm* time) {
 
   int today = time->tm_mday;
 
-  int start_weekday = time->tm_wday - today % 7;
+  int start_weekday = time->tm_wday - (today - 1) % 7;
+  if (start_weekday < 0) start_weekday += 7;
 
   print_frame(3, 1);
-  go(4, start_weekday * cell_width + 1); printf("1");
+
+  int total_days;
+  if (time->tm_mon == 1) {
+    if ((1900 + time->tm_year) % 400 != 0 && (1900 + time->tm_year) % 4 == 0) {
+      total_days = 29; // leap year
+    } else {
+      total_days = 28;
+  } else if (
+  go(4, start_weekday * cell_width + 3);
 
 }
 
