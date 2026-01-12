@@ -2,6 +2,7 @@
 #define CLIENT_BEHAVIOR_H
 
 #include <ncurses.h>
+#include <time.h>
 
 struct DateNode {
     int month, day, year;
@@ -21,7 +22,9 @@ struct EventNode {
     struct EventNode *next;
 };
 
-void display_calendar(int month);
+void display_calendar(struct tm*);
+void print_prompt();
+struct tm* get_now();
 struct EventNode* create_event(int owner_id, char* name, char* description, int permissions, int* times);
 
 void init_ui();

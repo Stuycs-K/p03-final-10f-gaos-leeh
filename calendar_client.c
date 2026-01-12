@@ -1,5 +1,11 @@
 #include "client_behavior.h"
 #include "networking.h"
+#include "text.h"
+
+#define terminal_width 169
+#define terminal_height 45
+#define cell_width 24
+#define cell_height 10
 
 int main(int argc, char** argv) {
   char* ip = "127.0.0.1";
@@ -15,26 +21,30 @@ int main(int argc, char** argv) {
   printf("%s", buffer);
 
   while (1) {
-        printf("\nenter command: ");
+        time_t raw_now = time(NULL);
+        struct tm* now = localtime(&raw_now);
+
+        display_calendar(now);
+        print_prompt();
         fflush(stdout);
-        
+
         memset(buffer, 0, BUFFER_SIZE);
         if (fgets(buffer, BUFFER_SIZE, stdin) == NULL) {
             break;
         }
-        
+
         write(server_socket, buffer, strlen(buffer));
-        
+
         memset(buffer, 0, BUFFER_SIZE);
         int bytes_read = read(server_socket, buffer, BUFFER_SIZE - 1);
         if (bytes_read <= 0) {
             printf("Server disconnected\n");
             break;
         }
-        
+
         printf("%s", buffer);
     }
-    
+
     close(server_socket);
     return 0;
 }
