@@ -44,15 +44,16 @@ void display_calendar(struct tm* time) {
   char* week_header = "         Sunday                  Monday                 Tuesday                 Wednesday               Thursday                 Friday                  Saturday      ";
 
   clear();
-  go(1, 1); printf("%s", months[now->tm_mon]);
+  go(1, 1); printf("%s", months[time->tm_mon]);
   go(2, 1); printf("%s", week_header);
 
-  int day = time->tm_mday;
-  int weekday = time->wday;
+  int today = time->tm_mday;
 
-  int shift = day % 7; // days since the weekday of the start of the month
+  int start_weekday = time->tm_wday - today % 7;
 
   print_frame(3, 1);
+  go(4, start_weekday * cell_width + 1); printf("1");
+
 }
 
 void print_prompt() {
