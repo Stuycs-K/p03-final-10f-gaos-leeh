@@ -44,9 +44,10 @@ void display_calendar(int month) {
 }
 
 void print_prompt() {
-  go(44, 0); printf("insert valid commands here");
-  go(43, 0); printf("enter command: ");
+  go(45, 0); printf("insert valid commands here");
+  go(44, 0); printf("enter command: ");
 }
+
 struct EventNode* create_event(int owner_id, char* name, char* description, int permissions, int* times) {
   struct EventNode* event = (struct EventNode*) malloc(sizeof(struct EventNode));
   event->event_id = rN();
