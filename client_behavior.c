@@ -44,7 +44,7 @@ void display_calendar(int month) {
   char* week_header = "         Sunday                  Monday                 Tuesday                 Wednesday               Thursday                 Friday                  Saturday      ";
 
   clear();
-  go(1, 1); printf("%s", months[month + 1]);
+  go(1, 1); printf("%s", months[month]);
   go(2, 1); printf("%s", week_header);
 
   print_frame(3, 1);
