@@ -2,6 +2,7 @@
 #define CLIENT_BEHAVIOR_H
 
 #include <time.h>
+#include <ncurses.h>
 #include "calendar.h"
 
 void display_calendar(struct tm*);

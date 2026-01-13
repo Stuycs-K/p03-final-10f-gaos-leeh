@@ -23,7 +23,7 @@
 #define UNDERLINE 4;
 #define INVERTED 7;
 
-void clear();
+// void clear();
 void go(int row, int col);
 void reset();
 void hideCursor();
