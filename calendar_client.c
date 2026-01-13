@@ -19,11 +19,12 @@ int main(int argc, char** argv) {
   read(server_socket, buffer, BUFFER_SIZE - 1);
   printf("%s", buffer);
 
+  int shift = 0;
   while (1) {
         time_t raw_now = time(NULL);
         struct tm* now = localtime(&raw_now);
 
-        display_calendar(now);
+        display_calendar(now, shift);
         print_prompt();
         fflush(stdout);
 

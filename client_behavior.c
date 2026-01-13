@@ -32,12 +32,14 @@ void print_frame(int start_row, int start_col) { // figure out resizing terminal
   }
 }
 
-void display_calendar(struct tm* time) {
+void display_calendar(struct tm* time, int shift) {
+  int display_month = rime->tm_month + shift;
+
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
   char* week_header = "         Sunday                  Monday                 Tuesday                 Wednesday               Thursday                 Friday                  Saturday      ";
 
   clear();
-  go(1, 1); printf("%s", months[time->tm_mon]);
+  go(1, 1); printf("%s", months[display_month]);
   go(2, 1); printf("%s", week_header);
 
   int today = time->tm_mday;
@@ -48,20 +50,20 @@ void display_calendar(struct tm* time) {
   print_frame(3, 1);
 
   int total_days;
-  if (time->tm_mon == 1) {
+  if (display_month == 1) {
     if ((1900 + time->tm_year) % 400 != 0 && (1900 + time->tm_year) % 4 == 0) {
       total_days = 29; // leap year
     } else {
       total_days = 28;
     }
-  } else if (time->tm_mon < 8) { // before august
-    if (time->tm_mon % 2) { // even months: apr, jun
+  } else if (display_month < 8) { // before august
+    if (display_month % 2) { // even months: apr, jun
       total_days = 30;
     } else { // odd months: jan, mar, may, jul
       total_days = 31;
     }
   } else {
-    if (time->tm_mon % 2) { // even months: oct, dec
+    if (display_month % 2) { // even months: oct, dec
       total_days = 31;
     } else { // odd months: sep, nov
       total_days = 30;
