@@ -1,9 +1,8 @@
 #include "client_behavior.h"
 #include "networking.h"
 #include "text.h"
+#include "calendar.h"
 
-#define terminal_width 169
-#define terminal_height 37
 #define cell_width 24
 #define cell_height 8
 
