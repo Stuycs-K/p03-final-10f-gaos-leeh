@@ -23,3 +23,4 @@ got the process_command and handle_create_event functions working (as of the end
 Ncurses trial on calender_ui.c
 
 ### 2026-01-12 - updated monthly view
+now supports "MONTH mm/yyyy" command on string based terminal, still needs to work out visuals/ncurses
