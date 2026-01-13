@@ -2,8 +2,6 @@
 #include "client_behavior.h"
 #include "text.h"
 
-#define terminal_width 169
-#define terminal_height 45
 #define cell_width 24
 #define cell_height 8
 
