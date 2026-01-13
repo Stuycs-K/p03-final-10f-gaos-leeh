@@ -105,6 +105,42 @@ void handle_view_events(char *buffer, int socket, int client_id, struct SharedCa
     write(socket, response, strlen(response));
 }
 
+void handle_month_view(char *buffer, int socket, int client_id, struct SharedCalendar *shared_cal) {
+    int month, year;
+    sscanf(buffer, "MONTH %d|%d", &month, &year);
+    
+    char response[BUFFER_SIZE * 10];
+    memset(response, 0, sizeof(response));
+    sprintf(response, "Events in %d/%d:\n", month, year);
+    
+    struct DateNode *date = shared_cal->calendar_head;
+    int found = 0;
+    
+    while (date) {
+        if (date->year == year && date->month == month) {
+            struct EventNode *event = date->events;
+            while (event) {
+                if (event->permissions == 0 || event->owner_id == client_id) {
+                    char event_str[512];
+                    sprintf(event_str, "%d/%d: [ID:%d] %s\n", 
+                            date->month, date->day, event->event_id, event->name);
+                    strcat(response, event_str);
+                    found = 1;
+                }
+                event = event->next;
+            }
+        }
+        date = date->next;
+    }
+    
+    if (!found) {
+        sprintf(response, "No events in %d/%d\n", month, year);
+    }
+    
+    write(socket, response, strlen(response));
+}
+
+
 void handle_delete_event(char *buffer, int socket, int client_id, struct SharedCalendar *shared_cal) {
     int event_id;
     sscanf(buffer, "DELETE %d", &event_id);
@@ -229,8 +265,9 @@ void process_command(char *buffer, int socket, int client_id, struct SharedCalen
     }
     else if (strcmp(command, "DELETE") == 0) {
         handle_delete_event(buffer, socket, client_id, shared_cal);
-    }
-    else {
+    } else if (strcmp(command, "MONTH") == 0) {
+        handle_month_view(buffer, socket, client_id, shared_cal);
+    } else {
         write(socket, "ERROR: Unknown command\n", 23);
     }
 }

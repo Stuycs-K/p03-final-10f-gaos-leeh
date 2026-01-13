@@ -21,3 +21,5 @@ got the process_command and handle_create_event functions working (as of the end
 
 ### 2026-01-11 - Ncurses basic setup/color
 Ncurses trial on calender_ui.c
+
+### 2026-01-12 - updated monthly view
