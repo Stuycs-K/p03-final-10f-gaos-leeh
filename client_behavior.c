@@ -86,10 +86,8 @@ void display_calendar(struct tm* time) {
 }
 
 void print_prompt() {
-  go(terminal_height - 2, 0); 
-  printf("Commands: CREATE, VIEW, MONTH, DELETE (or 'quit' to exit)");
-  go(terminal_height - 1, 0); 
-  printf("enter command: ");
+  go(terminal_height, 0); printf("insert valid commands here");
+  go(terminal_height - 1, 0); printf("enter command: ");
 }
 
 struct EventNode* create_event(int owner_id, char* name, char* description, int permissions, int* times) {
