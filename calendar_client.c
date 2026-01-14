@@ -23,12 +23,13 @@ int main(int argc, char** argv) {
   sleep(1);
   init_ui();
 
-  while (1) {
-        clear();
-        time_t raw_now = time(NULL);
-        struct tm* now = localtime(&raw_now);
+  time_t raw_now = time(NULL);
+  struct tm* now = localtime(&raw_now);
+  display_calendar(now);
 
-        display_calendar(now);
+  while (1) {
+        print_prompt();
+        fflush(stdout);
 
         move(terminal_height - 2, 0);
         printw("Commands: CREATE, VIEW, MONTH, DELETE (or 'quit' to exit)");
@@ -57,7 +58,6 @@ int main(int argc, char** argv) {
             break;
         }
 
-        clear();
         mvprintw(0, 0, "Server Response:");
         mvprintw(1, 0, "%s", buffer);
         mvprintw(terminal_height - 1, 0, "Press any key to continue...");
