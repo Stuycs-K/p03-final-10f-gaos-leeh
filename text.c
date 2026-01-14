@@ -38,7 +38,7 @@ void clear_block(int row, int col, int width, int height) {
   /*Overloaded Colorize methods.
   c1,c2 and c3 are any color modifiers such as bold/color/background color etc.
   */
-void color(char* text, int num_mods, int* mods) {
+void printf_color(char* text, int num_mods, int* mods) {
   printf("\x1b[");
 
   for (int i = 0; i < num_mods; i++) {

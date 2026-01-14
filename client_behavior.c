@@ -5,6 +5,8 @@
 #define cell_width 24
 #define cell_height 8
 
+#define ABS(x) (x < 0)?(x * -1):x
+
 int rN() {
   int fd = open("/dev/random", O_RDONLY, 0); if (fd < 0) {printf("%s\n", strerror(errno)); exit(errno);}
   int n1,n2;
@@ -16,7 +18,18 @@ int rN() {
 }
 
 int weekday(int day, int month, int year) {
-  int doomsdays[] = {(year % 400 && !(year % 4))};
+  int century = year / 100;
+  int shift = year % 100;
+
+  int anchor_lookup[] = {2, 0, 5, 3}; // 2000s: tue 2100s: sun 2200s: friday 2300s: wed
+  int doomsdays[] = {(year % 400 && !(year % 4))?4:3, (year % 400 && !(year % 4))?29:28, 14, 4, 9, 6, 11, 8, 5, 10, 7, 12}; // doomsdays by months
+
+  int sum = 0;
+  sum += (shift / 12) + (shift % 12) + (shift % 12 % 4) + anchor_lookup[century];
+  sum %= 7; // doomsday of tm_year
+
+  int result = (ABS(doomsdays[month] - day) % 7 + sum) % 7;
+  return result;
 }
 
 void print_frame(int start_row, int start_col) { // figure out resizing terminal
@@ -37,7 +50,7 @@ void print_frame(int start_row, int start_col) { // figure out resizing terminal
 }
 
 void display_calendar(struct tm* time, int shift) {
-  int display_month = time->tm_month + shift;
+  int display_month = time->tm_mon + shift;
 
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
   char* week_header = "         Sunday                  Monday                 Tuesday                 Wednesday               Thursday                 Friday                  Saturday      ";
@@ -46,10 +59,7 @@ void display_calendar(struct tm* time, int shift) {
   go(1, 1); printf("%s", months[display_month]);
   go(2, 1); printf("%s", week_header);
 
-  int today = time->tm_mday;
-
-  int start_weekday = time->tm_wday - (today - 1) % 7;
-  if (start_weekday < 0) start_weekday += 7;
+  int start_weekday = weekday(1, time->tm_mon, time->tm_year);
 
   print_frame(3, 1);
 
@@ -77,7 +87,15 @@ void display_calendar(struct tm* time, int shift) {
   int curr_row = 4;
   int cell_margin = 3;
   for(int i = 0; i < total_days; i++) {
-    go(curr_row, start_weekday * cell_width + cell_margin); printf("%d", i + 1);
+    go(curr_row, start_weekday * cell_width + cell_margin);
+    if (i + 1 == time->tm_mon) {
+      char text[5];
+      int mods[] = {WHITE + BACKGROUND};
+      err(sprintf(text, "%d", i), "sprintf failed");
+      printf_color(text, 2, mods);
+    } else {
+      printf("%d", i + 1);
+    }
     start_weekday++;
 
     if (start_weekday == 7) {
