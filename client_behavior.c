@@ -5,6 +5,10 @@
 #define cell_width 24
 #define cell_height 8
 
+void clear_screen() {
+    printf("\x1b[2J");
+}
+
 int rN() {
   int fd = open("/dev/random", O_RDONLY, 0); if (fd < 0) {printf("%s\n", strerror(errno)); exit(errno);}
   int n1,n2;
@@ -14,26 +18,6 @@ int rN() {
   int result = n1 * n2; if (result < 0) result *= -1;
   return result;
 }
-
-/*
-if (getch() == '\033') { // if the first value is esc
-    getch(); // skip the [
-    switch(getch()) { // the real value
-        case 'A':
-            // code for arrow up
-            break;
-        case 'B':
-            // code for arrow down
-            break;
-        case 'C':
-            // code for arrow right
-            break;
-        case 'D':
-            // code for arrow left
-            break;
-    }
-}
-*/
 
 void print_frame(int start_row, int start_col) { // figure out resizing terminal
   go(start_row, start_col);
@@ -56,7 +40,7 @@ void display_calendar(struct tm* time) {
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
   char* week_header = "         Sunday                  Monday                 Tuesday                 Wednesday               Thursday                 Friday                  Saturday      ";
 
-  clear();
+  clear_screen();
   go(1, 1); printf("%s", months[time->tm_mon]);
   go(2, 1); printf("%s", week_header);
 
