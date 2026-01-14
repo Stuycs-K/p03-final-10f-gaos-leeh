@@ -24,3 +24,6 @@ Ncurses trial on calender_ui.c
 
 ### 2026-01-12 - updated monthly view
 now supports "MONTH mm/yyyy" command on string based terminal, still needs to work out visuals/ncurses
+
+### 2026-01-13 - ncurses preliminary implementation
+terminal resizing, made the TUI be pitch black, and now supports keybind to naviage thru inputs like up and down arrows. still need to figure out how to display calendar though.
