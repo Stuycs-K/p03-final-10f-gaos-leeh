@@ -15,6 +15,10 @@ int rN() {
   return result;
 }
 
+int weekday(int day, int month, int year) {
+  int doomsdays[] = {(year % 400 && !(year % 4))};
+}
+
 void print_frame(int start_row, int start_col) { // figure out resizing terminal
   go(start_row, start_col);
 
@@ -33,7 +37,7 @@ void print_frame(int start_row, int start_col) { // figure out resizing terminal
 }
 
 void display_calendar(struct tm* time, int shift) {
-  int display_month = rime->tm_month + shift;
+  int display_month = time->tm_month + shift;
 
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
   char* week_header = "         Sunday                  Monday                 Tuesday                 Wednesday               Thursday                 Friday                  Saturday      ";
