@@ -5,7 +5,7 @@ open_calendar: compile
 	@./calendar_client
 compile: calendar_server.o server_behavior.o calendar_client.o client_behavior.o networking.o text.o
 	@gcc -o calendar_server calendar_server.o server_behavior.o networking.o text.o
-	@gcc -o -lncurses calendar_client calendar_client.o client_behavior.o networking.o text.o
+	@gcc -o calendar_client calendar_client.o client_behavior.o networking.o text.o -lncurses
 server_behavior.o: server_behavior.c networking.h text.h calendar.h
 	@gcc -c -Wall server_behavior.c
 client_behavior.o: client_behavior.c networking.h text.h calendar.h
