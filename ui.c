@@ -59,7 +59,7 @@ void get_command_with_history(char *buffer, int max_len) {
                     strcpy(buffer, command_history[actual_index]);
                     pos = strlen(buffer);
                     
-                    move(terminal_height - 1, 15);
+                    move(LINES - 1, 15);
                     clrtoeol();
                     printw("%s", buffer);
                     refresh();
@@ -73,7 +73,7 @@ void get_command_with_history(char *buffer, int max_len) {
                 strcpy(buffer, command_history[actual_index]);
                 pos = strlen(buffer);
                 
-                move(terminal_height - 1, 15);
+                move(LINES - 1, 15);
                 clrtoeol();
                 printw("%s", buffer);
                 refresh();
@@ -82,7 +82,7 @@ void get_command_with_history(char *buffer, int max_len) {
                 buffer[0] = '\0';
                 pos = 0;
                 
-                move(terminal_height - 1, 15);
+                move(LINES - 1, 15);
                 clrtoeol();
                 refresh();
             }
@@ -118,4 +118,49 @@ int get_days_in_month(int month, int year) {
     }
     
     return days[month - 1];
+}
+
+void display_calendar_ncurses(struct tm* display_time) {
+    char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", 
+                      "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+    
+    attron(COLOR_PAIR(1) | A_BOLD);
+    mvprintw(0, 0, "%s %d", months[display_time->tm_mon], 1900 + display_time->tm_year);
+    attroff(COLOR_PAIR(1) | A_BOLD);
+    
+    mvprintw(1, 0, "Sun      Mon      Tue      Wed      Thu      Fri      Sat");
+    
+    int total_days = get_days_in_month(display_time->tm_mon + 1, 1900 + display_time->tm_year);
+
+    struct tm first_day = *display_time;
+    first_day.tm_mday = 1;
+    mktime(&first_day);
+    int start_weekday = first_day.tm_wday;
+    
+    time_t raw_now = time(NULL);
+    struct tm* today_tm = localtime(&raw_now);
+    int today = today_tm->tm_mday;
+    int today_month = today_tm->tm_mon;
+    int today_year = today_tm->tm_year;
+    
+    int row = 3;
+    int col = start_weekday * 9;
+    
+    for(int day = 1; day <= total_days; day++) {
+        if (day == today && display_time->tm_mon == today_month && display_time->tm_year == today_year) {
+            attron(COLOR_PAIR(2) | A_BOLD);
+            mvprintw(row, col, "%2d", day);
+            attroff(COLOR_PAIR(2) | A_BOLD);
+        } else {
+            mvprintw(row, col, "%2d", day);
+        }
+        
+        col += 9;
+        if (col >= 63) {
+            col = 0;
+            row++;
+        }
+    }
+    
+    refresh();
 }
