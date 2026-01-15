@@ -19,13 +19,13 @@ int rN() {
 
 int weekday(int day, int month, int year) {
   int century = year / 100;
-  int shift = year % 100;
+  int offset = year % 100;
 
   int anchor_lookup[] = {2, 0, 5, 3}; // 2000s: tue 2100s: sun 2200s: friday 2300s: wed
   int doomsdays[] = {(year % 400 && !(year % 4))?4:3, (year % 400 && !(year % 4))?29:28, 14, 4, 9, 6, 11, 8, 5, 10, 7, 12}; // doomsdays by months
 
   int sum = 0;
-  sum += (shift / 12) + (shift % 12) + (shift % 12 % 4) + anchor_lookup[century];
+  sum += (offset / 12) + (offset % 12) + (offset % 12 % 4) + anchor_lookup[century];
   sum %= 7; // doomsday of tm_year
 
   int result = (ABS(doomsdays[month] - day) % 7 + sum) % 7;
@@ -49,7 +49,7 @@ void print_frame(int start_row, int start_col) { // figure out resizing terminal
   }
 }
 
-void display_calendar(struct tm* time, int shift) {
+void display_calendar(struct tm* time) {
   int display_month = time->tm_mon + shift;
 
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};

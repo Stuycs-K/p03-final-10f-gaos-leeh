@@ -1,5 +1,8 @@
 #ifndef CALENDAR_H
 #define CALENDAR_H
+
+#define shift 0
+
 struct DateNode {
     int month, day, year;
     struct EventNode *events;
