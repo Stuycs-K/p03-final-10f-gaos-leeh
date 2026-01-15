@@ -9,12 +9,12 @@ int main(int argc, char** argv) {
   if (argc > 1) ip = argv[1];
 
   int server_socket = client_tcp_handshake(ip);
-  
+
   char buffer[BUFFER_SIZE];
   memset(buffer, 0, BUFFER_SIZE);
   int bytes = read(server_socket, buffer, BUFFER_SIZE - 1);
   if (bytes > 0) buffer[bytes] = '\0';
-  
+
   init_ui();
 
   mvprintw(0, 0, "Connected: %s", buffer);
@@ -23,26 +23,20 @@ int main(int argc, char** argv) {
 
   time_t raw_now = time(NULL);
   struct tm* now = localtime(&raw_now);
-<<<<<<< HEAD
   int current_month = now->tm_mon;
   int current_year = now->tm_year + 1900;
-
-  while (1) {
-        clear();
-=======
 
   while (1) {
         display_calendar(now);
         print_prompt();
         fflush(stdout);
->>>>>>> main
 
         struct tm display_time = {0};
         display_time.tm_mon = current_month;
         display_time.tm_year = current_year - 1900;
         display_time.tm_mday = 1;
         mktime(&display_time);
-        
+
         display_calendar_ncurses(&display_time);
 
         mvprintw(LINES - 4, 0, "Arrow Keys: Navigate months | Commands: CREATE, VIEW, MONTH, DELETE");
@@ -53,9 +47,9 @@ int main(int argc, char** argv) {
 
         char command[BUFFER_SIZE];
         memset(command, 0, BUFFER_SIZE);
-        
+
         int ch = getch();
-        
+
         if (ch == KEY_LEFT) {
             current_month--;
             if (current_month < 0) {
