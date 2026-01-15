@@ -28,12 +28,7 @@ now supports "MONTH mm/yyyy" command on string based terminal, still needs to wo
 ### 2026-01-13 - ncurses preliminary implementation
 terminal resizing, made the TUI be pitch black, and now supports keybind to naviage thru inputs like up and down arrows. still need to figure out how to display calendar though.
 
-<<<<<<< HEAD
 ### 2026-01-14 - menu instruciton null termination, ncurses display and arrow keybind
-included ncurses.o and overridden same named function with text.c and ncurses.c, null terminated string printed for the client so there's no more "here" garbage pointing.
+reverted the commit that nullified all ncurses functions, found isseus like server stacking all responses even after deleting, and not printing the calendar text; included ncurses.o and overridden same named function with text.c and ncurses.c, null terminated string printed for the client so there's no more "here" garbage pointing.
 
 ### 2025-01-15 - syntax instruction on the client menu
-=======
-### 2026-01-14 -
-reverted the commit that nullified all ncurses functions, found isseus like server stacking all responses even after deleting, and not printing the calendar text
->>>>>>> f8cd5996e7606346762dd8a1e4c034848bc27c0a
