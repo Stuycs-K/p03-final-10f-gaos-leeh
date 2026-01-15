@@ -27,3 +27,6 @@ now supports "MONTH mm/yyyy" command on string based terminal, still needs to wo
 
 ### 2026-01-13 - ncurses preliminary implementation
 terminal resizing, made the TUI be pitch black, and now supports keybind to naviage thru inputs like up and down arrows. still need to figure out how to display calendar though.
+
+### 2026-01-14 -
+reverted the commit that nullified all ncurses functions, found isseus like server stacking all responses even after deleting, and not printing the calendar text
