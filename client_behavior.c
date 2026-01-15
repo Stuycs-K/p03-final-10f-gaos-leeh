@@ -89,7 +89,7 @@ void display_calendar(struct tm* time, int shift) {
   for(int i = 0; i < total_days; i++) {
     go(curr_row, start_weekday * cell_width + cell_margin);
     if (i + 1 == time->tm_mon) {
-      char text[5];
+      char text[11];
       int mods[] = {WHITE + BACKGROUND};
       err(sprintf(text, "%d", i), "sprintf failed");
       printf_color(text, 2, mods);
