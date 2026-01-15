@@ -27,9 +27,8 @@ int main(int argc, char** argv) {
   struct tm* now = localtime(&raw_now);
 
   int shift = 0;
-  display_calendar(now, shift);
-
   while (1) {
+        display_calendar(now, shift);
         print_prompt();
         fflush(stdout);
 

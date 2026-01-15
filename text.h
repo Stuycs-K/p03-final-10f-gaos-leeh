@@ -29,6 +29,6 @@ void reset();
 void hideCursor();
 void showCursor();
 void clear_block(int row, int col, int width, int height);
-void printf_color(char* text, int num_mods, int* mods);
+void printw_color(char* text, int num_mods, int* mods);
 
 #endif

@@ -8,10 +8,10 @@
 #define ABS(x) (x < 0)?(x * -1):x
 
 int rN() {
-  int fd = open("/dev/random", O_RDONLY, 0); if (fd < 0) {printf("%s\n", strerror(errno)); exit(errno);}
+  int fd = open("/dev/random", O_RDONLY, 0); if (fd < 0) {printw("%s\n", strerror(errno)); exit(errno);}
   int n1,n2;
-  if (read(fd, &n1, sizeof(int)) < 0) {printf("%s\n", strerror(errno)); exit(errno);}
-  if (read(fd, &n2, sizeof(int)) < 0) {printf("%s\n", strerror(errno)); exit(errno);}
+  if (read(fd, &n1, sizeof(int)) < 0) {printw("%s\n", strerror(errno)); exit(errno);}
+  if (read(fd, &n2, sizeof(int)) < 0) {printw("%s\n", strerror(errno)); exit(errno);}
 
   int result = n1 * n2; if (result < 0) result *= -1;
   return result;
@@ -33,17 +33,17 @@ int weekday(int day, int month, int year) {
 }
 
 void print_frame(int start_row, int start_col) { // figure out resizing terminal
-  go(start_row, start_col);
+  move(start_row, start_col);
 
-  for (int row = 1; row <= cell_height * 5 + 1; row++) {
-    for (int col = 1; col <= cell_width * 7 + 1; col++) {
-        go(start_row + row - 1, start_col + col - 1);
-        if ((col - 1) % cell_width == 0 && (row - 1) % cell_height == 0) {
-            printf("+");
-        } else if ((col - 1) % cell_width == 0) {
-            printf("|");
-        } else if ((row - 1) % cell_height == 0) {
-            printf("-");
+  for (int row = 0; row <= cell_height * 5; row++) {
+    for (int col = 0; col <= cell_width * 7; col++) {
+        move(start_row + row, start_col + col);
+        if (col % cell_width == 0 && row % cell_height == 0) {
+            printw("+");
+        } else if (col % cell_width == 0) {
+            printw("|");
+        } else if (row % cell_height == 0) {
+            printw("-");
         }
     }
   }
@@ -55,13 +55,13 @@ void display_calendar(struct tm* time, int shift) {
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
   char* week_header = "         Sunday                  Monday                 Tuesday                 Wednesday               Thursday                 Friday                  Saturday      ";
 
-  clear();
-  go(1, 1); printf("%s", months[display_month]);
-  go(2, 1); printf("%s", week_header);
+  err(clear(), "ncurses clear() failed");
+  move(0, 0); printw("%s", months[display_month]);
+  move(1, 0); printw("%s", week_header);
 
   int start_weekday = weekday(1, time->tm_mon, time->tm_year);
 
-  print_frame(3, 1);
+  print_frame(2, 0);
 
   int total_days;
   if (display_month == 1) {
@@ -84,17 +84,17 @@ void display_calendar(struct tm* time, int shift) {
     }
   }
 
-  int curr_row = 4;
-  int cell_margin = 3;
+  int curr_row = 3;
+  int cell_margin = 2;
   for(int i = 0; i < total_days; i++) {
-    go(curr_row, start_weekday * cell_width + cell_margin);
+    move(curr_row, start_weekday * cell_width + cell_margin);
     if (i + 1 == time->tm_mon) {
       char text[11];
       int mods[] = {WHITE + BACKGROUND};
-      err(sprintf(text, "%d", i), "sprintf failed");
-      printf_color(text, 2, mods);
+      err(sprintf(text, "%d", i), "sprintw failed");
+      printw_color(text, 2, mods);
     } else {
-      printf("%d", i + 1);
+      printw("%d", i + 1);
     }
     start_weekday++;
 
@@ -106,8 +106,8 @@ void display_calendar(struct tm* time, int shift) {
 }
 
 void print_prompt() {
-  go(terminal_height, 0); printf("insert valid commands here");
-  go(terminal_height - 1, 0); printf("enter command: ");
+  move(terminal_height, 0); printw("insert valid commands here");
+  move(terminal_height - 1, 0); printw("enter command: ");
 }
 
 struct EventNode* create_event(int owner_id, char* name, char* description, int permissions, int* times) {
