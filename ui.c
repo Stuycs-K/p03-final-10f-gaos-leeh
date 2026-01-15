@@ -1,6 +1,6 @@
+#include <ncurses.h>
 #include "networking.h"
 #include "client_behavior.h"
-#include <ncurses.h>
 #include "text.h"
 
 #define MAX_HISTORY 50
@@ -31,7 +31,7 @@ void cleanup_ui() {
 }
 
 void add_to_history(const char *cmd) {
-    if (strlen(cmd) == 0) return;
+    if (!cmd) return;
     
     strncpy(command_history[history_count % MAX_HISTORY], cmd, MAX_CMD_LEN - 1);
     history_count++;

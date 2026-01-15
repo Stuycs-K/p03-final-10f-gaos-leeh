@@ -23,11 +23,19 @@ int main(int argc, char** argv) {
 
   time_t raw_now = time(NULL);
   struct tm* now = localtime(&raw_now);
+<<<<<<< HEAD
   int current_month = now->tm_mon;
   int current_year = now->tm_year + 1900;
 
   while (1) {
         clear();
+=======
+
+  while (1) {
+        display_calendar(now);
+        print_prompt();
+        fflush(stdout);
+>>>>>>> main
 
         struct tm display_time = {0};
         display_time.tm_mon = current_month;

@@ -3,6 +3,7 @@
 
 #include <time.h>
 #include "calendar.h"
+#include "ui.h"
 
 void display_calendar(struct tm*);
 void print_prompt();
