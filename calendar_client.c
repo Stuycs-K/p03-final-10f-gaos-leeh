@@ -20,23 +20,16 @@ int main(int argc, char** argv) {
   read(server_socket, buffer, BUFFER_SIZE - 1);
   printf("%s", buffer);
 
-<<<<<<< HEAD
-  int shift = 0;
-  while (1) {
-        time_t raw_now = time(NULL);
-        struct tm* now = localtime(&raw_now);
-
-        display_calendar(now, shift);
-=======
   sleep(1);
   init_ui();
 
   time_t raw_now = time(NULL);
   struct tm* now = localtime(&raw_now);
-  display_calendar(now);
+
+  int shift = 0;
+  display_calendar(now, shift);
 
   while (1) {
->>>>>>> 4c0254cbb894e5c23edb1e61df208ea405b26d55
         print_prompt();
         fflush(stdout);
 

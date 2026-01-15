@@ -5,13 +5,7 @@
 #define cell_width 24
 #define cell_height 8
 
-<<<<<<< HEAD
 #define ABS(x) (x < 0)?(x * -1):x
-=======
-void clear_screen() {
-    printf("\x1b[2J");
-}
->>>>>>> 4c0254cbb894e5c23edb1e61df208ea405b26d55
 
 int rN() {
   int fd = open("/dev/random", O_RDONLY, 0); if (fd < 0) {printf("%s\n", strerror(errno)); exit(errno);}
@@ -23,7 +17,6 @@ int rN() {
   return result;
 }
 
-<<<<<<< HEAD
 int weekday(int day, int month, int year) {
   int century = year / 100;
   int shift = year % 100;
@@ -39,8 +32,6 @@ int weekday(int day, int month, int year) {
   return result;
 }
 
-=======
->>>>>>> 4c0254cbb894e5c23edb1e61df208ea405b26d55
 void print_frame(int start_row, int start_col) { // figure out resizing terminal
   go(start_row, start_col);
 
