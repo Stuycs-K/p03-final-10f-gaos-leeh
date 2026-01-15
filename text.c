@@ -1,11 +1,10 @@
 #include <stdio.h>
+#include <ncurses.h>
 #include "text.h"
 
-/*
-void clear() {
-  printf("\x1b[2J");
-}
-*/
+// void clear() {
+//   printf("\x1b[2J");
+// }
 
 void go(int row, int col) {
   printf("\x1b[%d;%df", row, col);
@@ -38,12 +37,12 @@ void clear_block(int row, int col, int width, int height) {
   /*Overloaded Colorize methods.
   c1,c2 and c3 are any color modifiers such as bold/color/background color etc.
   */
-void color(char* text, int num_mods, int* mods) {
-  printf("\x1b[");
+void printw_color(char* text, int num_mods, int* mods) {
+  printw("\x1b[");
 
   for (int i = 0; i < num_mods; i++) {
-    printf("%d", mods[i]);
-    if (i != num_mods - 1) printf(";");
+    printw("%d", mods[i]);
+    if (i != num_mods - 1) printw(";");
   }
-  printf("m%s\x1b[0m", text);
+  printw("m%s\x1b[0m", text);
 }

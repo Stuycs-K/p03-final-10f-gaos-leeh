@@ -3,20 +3,22 @@ calendar_setup: compile
 	@./calendar_server
 open_calendar: compile
 	@./calendar_client
-compile: calendar_server.o server_behavior.o calendar_client.o client_behavior.o networking.o text.o
-	@gcc -o calendar_server calendar_server.o server_behavior.o networking.o text.o
-	@gcc -o calendar_client calendar_client.o client_behavior.o networking.o text.o -lncurses
+compile: calendar_server.o server_behavior.o calendar_client.o client_behavior.o text.o networking.o ui.o
+	@gcc -o calendar_server calendar_server.o server_behavior.o networking.o
+	@gcc -o calendar_client calendar_client.o client_behavior.o text.o networking.o ui.o -lncurses
 server_behavior.o: server_behavior.c networking.h text.h calendar.h
 	@gcc -c -Wall server_behavior.c
-client_behavior.o: client_behavior.c networking.h text.h calendar.h
+client_behavior.o: client_behavior.c networking.h text.h calendar.h ui.h
 	@gcc -c -Wall client_behavior.c
 calendar_server.o: calendar_server.c server_behavior.h calendar.h
 	@gcc -c -Wall calendar_server.c
-calendar_client.o: calendar_client.c client_behavior.h calendar.h
+calendar_client.o: calendar_client.c client_behavior.h calendar.h ui.h
 	@gcc -c -Wall calendar_client.c
 networking.o: networking.c
 	@gcc -c -Wall networking.c
 text.o: text.c
 	@gcc -c -Wall text.c
+ui.o: ui.c
+	@gcc -c -Wall ui.c
 clean:
 	rm -f *.o calendar_server calendar_client calendar_data.txt

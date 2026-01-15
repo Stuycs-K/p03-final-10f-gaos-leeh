@@ -2,8 +2,8 @@
 #define CLIENT_BEHAVIOR_H
 
 #include <time.h>
-#include <ncurses.h>
 #include "calendar.h"
+#include "ui.h"
 
 void display_calendar(struct tm*);
 void print_prompt();

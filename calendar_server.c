@@ -9,7 +9,7 @@ int main() {
     }
 
     shared_calendar = (struct SharedCalendar *)shmat(shmid, NULL, 0);
-    if (shared_calendar == (void *)-1) {
+    if (shared_calendar == (void *) - 1) {
         perror("shmat failed");
         exit(1);
     }
