@@ -32,3 +32,4 @@ terminal resizing, made the TUI be pitch black, and now supports keybind to navi
 reverted the commit that nullified all ncurses functions, found isseus like server stacking all responses even after deleting, and not printing the calendar text; included ncurses.o and overridden same named function with text.c and ncurses.c, null terminated string printed for the client so there's no more "here" garbage pointing.
 
 ### 2025-01-15 - syntax instruction on the client menu
+added a "HELP" command in calendar_client.c for better navigation, and fixed the grid/printing issues. (this unironically also made the page view for all years accurately, because i made a struct to keep track of the days in the week.)
