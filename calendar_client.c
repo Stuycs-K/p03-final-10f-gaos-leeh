@@ -26,6 +26,7 @@ int main(int argc, char** argv) {
   int current_month = now->tm_mon;
   int current_year = now->tm_year + 1900;
 
+  int shift = 0;
   while (1) {
         clear();
 
@@ -35,7 +36,7 @@ int main(int argc, char** argv) {
         display_time.tm_mday = 1;
         mktime(&display_time);
 
-        display_calendar_ncurses(&display_time);
+        display_calendar(now, shift);
 
         mvprintw(LINES - 4, 0, "Arrow Keys: Navigate months | Commands: CREATE, VIEW, MONTH, DELETE");
         mvprintw(LINES - 3, 0, "Current view: Month %d/%d", current_month + 1, current_year);
@@ -55,6 +56,7 @@ int main(int argc, char** argv) {
                 current_year--;
                 if (current_year < 2026) current_year = 2026;
             }
+            shift--;
             continue;
         } else if (ch == KEY_RIGHT) {
             current_month++;
@@ -63,6 +65,7 @@ int main(int argc, char** argv) {
                 current_year++;
                 if (current_year > 2026) current_year = 2026;
             }
+            shift++;
             continue;
         } else if (ch == KEY_UP) {
             current_month -= 3;

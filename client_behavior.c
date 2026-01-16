@@ -5,8 +5,6 @@
 #define cell_width 24
 #define cell_height 8
 
-#define ABS(x) (x < 0)?(x * -1):x
-
 int rN() {
   int fd = open("/dev/random", O_RDONLY, 0); if (fd < 0) {printw("%s\n", strerror(errno)); exit(errno);}
   int n1,n2;
@@ -17,22 +15,7 @@ int rN() {
   return result;
 }
 
-int weekday(int day, int month, int year) {
-  int century = year / 100;
-  int offset = year % 100;
-
-  int anchor_lookup[] = {2, 0, 5, 3}; // 2000s: tue 2100s: sun 2200s: friday 2300s: wed
-  int doomsdays[] = {(year % 400 && !(year % 4))?4:3, (year % 400 && !(year % 4))?29:28, 14, 4, 9, 6, 11, 8, 5, 10, 7, 12}; // doomsdays by months
-
-  int sum = 0;
-  sum += (offset / 12) + (offset % 12) + (offset % 12 % 4) + anchor_lookup[century];
-  sum %= 7; // doomsday of tm_year
-
-  int result = (ABS(doomsdays[month] - day) % 7 + sum) % 7;
-  return result;
-}
-
-void print_frame(int start_row, int start_col) { // figure out resizing terminal
+void print_frame(int start_row, int start_col) {
   move(start_row, start_col);
 
   for (int row = 0; row <= cell_height * 5; row++) {
@@ -49,23 +32,30 @@ void print_frame(int start_row, int start_col) { // figure out resizing terminal
   }
 }
 
-void display_calendar(struct tm* time) {
-  int display_month = time->tm_mon + shift;
+void display_calendar(struct tm* time, int shift) {
+  int display_month = (time->tm_mon + shift) % 12; if (display_month < 0) display_month += 12;
+  int display_year = 1900 + time->tm_year;
 
   char* months[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
   char* week_header = "         Sunday                  Monday                 Tuesday                 Wednesday               Thursday                 Friday                  Saturday      ";
 
   err(clear(), "ncurses clear() failed");
-  move(0, 0); printw("%s", months[display_month]);
-  move(1, 0); printw("%s", week_header);
+  mvprintw(0, 0, "%s", months[display_month]);
+  mvprintw(1, 0, "%s", week_header);
 
-  int start_weekday = weekday(1, time->tm_mon, time->tm_year);
+  struct tm first_day;
+  first_day.tm_year = display_year - 1900;
+  first_day.tm_mon = display_month;
+  first_day.tm_mday = 1;
+  mktime(&first_day);
+
+  int curr_weekday = first_day.tm_wday;
 
   print_frame(2, 0);
 
   int total_days;
   if (display_month == 1) {
-    if ((1900 + time->tm_year) % 400 != 0 && (1900 + time->tm_year) % 4 == 0) {
+    if (display_year % 400 != 0 && display_year % 4 == 0) {
       total_days = 29; // leap year
     } else {
       total_days = 28;
@@ -87,20 +77,18 @@ void display_calendar(struct tm* time) {
   int curr_row = 3;
   int cell_margin = 2;
   for(int i = 0; i < total_days; i++) {
-    move(curr_row, start_weekday * cell_width + cell_margin);
-    if (i + 1 == time->tm_mon) {
-      char text[11];
-      int mods[] = {WHITE + BACKGROUND};
-      err(sprintf(text, "%d", i), "sprintw failed");
-      printw_color(text, 2, mods);
+    if (i + 1 == time->tm_mday && display_month == time->tm_mon) {
+      attron(COLOR_PAIR(2) | A_BOLD);
+      mvprintw(curr_row, curr_weekday * cell_width + cell_margin, "%d", i + 1);
+      attroff(COLOR_PAIR(2) | A_BOLD);
     } else {
-      printw("%d", i + 1);
+      mvprintw(curr_row, curr_weekday * cell_width + cell_margin, "%d", i + 1);
     }
-    start_weekday++;
+    curr_weekday++;
 
-    if (start_weekday == 7) {
+    if (curr_weekday == 7) {
       curr_row += cell_height;
-      start_weekday %= 7;
+      curr_weekday %= 7;
     }
   }
 }
