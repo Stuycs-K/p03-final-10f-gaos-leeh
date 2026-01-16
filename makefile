@@ -14,8 +14,6 @@ calendar_server.o: calendar_server.c server_behavior.h calendar.h
 	@gcc -c -Wall calendar_server.c
 calendar_client.o: calendar_client.c client_behavior.h calendar.h ui.h
 	@gcc -c -Wall calendar_client.c
-ncurses.o: ncurses.c client_behavior.h
-	@gcc -c -Wall ncurses.c
 networking.o: networking.c
 	@gcc -c -Wall networking.c
 text.o: text.c
