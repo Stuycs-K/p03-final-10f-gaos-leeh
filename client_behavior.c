@@ -15,24 +15,7 @@ int rN() {
   return result;
 }
 
-int weekday(int day, int month, int year) {
-  int century = year / 100;
-  int offset = year % 100;
-
-  int anchor_lookup[] = {2, 0, 5, 3}; // 2000s: tue 2100s: sun 2200s: friday 2300s: wed
-  int doomsdays[] = {3, 28, 14, 4, 9, 6, 11, 8, 5, 10, 7, 12}; // doomsdays by months
-
-  int sum = 0;
-  sum += (offset / 12) + (offset % 12) + ((offset % 12) % 4) + anchor_lookup[century];
-  sum %= 7; // doomsday of tm_year
-
-  int result = doomsdays[month] - day; result %= 7; if (result < 0) result += 7;
-  result += sum; result %=7;
-
-  return result;
-}
-
-void print_frame(int start_row, int start_col) { // figure out resizing terminal
+void print_frame(int start_row, int start_col) {
   move(start_row, start_col);
 
   for (int row = 0; row <= cell_height * 5; row++) {
